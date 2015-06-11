@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<workspace>
+	<settings>
+		<label>PhysicsGame</label>
+	</settings>
+	<users>
+		<user>
+			<path>PhysicsGame.jcu</path>
+		</user>
+	</users>
+	<projects>
+		<project>
+			<path>PysicsGame.jcp</path>
+		</project>
+	</projects>
+</workspace>
