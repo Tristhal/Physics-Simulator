@@ -14,7 +14,7 @@ public class Menu_BounceBall {
     	r=255/2;
     	this.g=255/2;
     	b=255/2;
-    	menu=new menuScreen(0,140,140,320,gp,"Bounce Balls");
+    	menu=new menuScreen(0,165,140,320,gp,"Bounce Balls");
     	menu.setMoveable(true);
     	menu.setColour(new Color(100,100,100));
     	menu.addSlider(75,50,50,new Color(255,100,100),"Size");
@@ -84,7 +84,5 @@ public class Menu_BounceBall {
     }
     public void draw(Graphics2D g){
     	menu.draw(g);
-    }
-    
-    
+    } 
 }

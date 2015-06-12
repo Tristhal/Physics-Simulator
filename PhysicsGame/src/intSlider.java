@@ -6,17 +6,17 @@ import java.io.*;
 import javax.imageio.*; 
 import java.util.*;
 class intSlider {
-	int x;
-	int y;
-	int width;
-	Color colour;
-	menuScreen menu;
-	int posx;
-	int bwid;
-	int bhei;
-	int lastposx;
-	boolean moving;
-	String label;
+	private int x;
+	private int y;
+	private int width;
+	private Color colour;
+	private menuScreen menu;
+	private int posx;
+	private int bwid;
+	private int bhei;
+	private int lastposx;
+	private boolean moving;
+	private String label;
 	public intSlider(int x, int y, int wid,Color colour,menuScreen m,String s){
 		label=s;
 		this.x=x;

@@ -126,7 +126,8 @@ class GamePanel extends JPanel implements MouseMotionListener, MouseListener,Key
 	    g.setColor(new Color(0,0,0));
   	    	if(mainframe.getStartMenuStatus()){
 	    		startmenu.draw(g);
-	    		if(wballs.getBalls().size()<400){
+	    		if(wballs.getBalls().size()<200){
+	    			//bballs.addBall((int)(Math.random()*1000),(int)(Math.random()*160)+40,(int)(Math.random()*14)+5,(int)(Math.random()*49)+1,new Color(255,255,255),true);
 	    			wballs.addBall((int)(Math.random()*1000),(int)(Math.random()*160)+40);
 	    		}
 	    		else{
@@ -137,7 +138,7 @@ class GamePanel extends JPanel implements MouseMotionListener, MouseListener,Key
 	    		if((int)(Math.random()*100)==5){
 	    			wballs.setViscosity(Math.random()*10/100);
 	    		}
-	    		if((int)(Math.random()*300)==5){
+	    		if((int)(Math.random()*500)==434){
 	    			gravity*=-1;
 	    		}
 	    		if((int)(Math.random()*600)==5){
@@ -186,6 +187,9 @@ class GamePanel extends JPanel implements MouseMotionListener, MouseListener,Key
     	mxlast=mx;
     	mylast=my;
     }
+    public ArrayList<ArrayList<ArrayList<bounceBall>>> getBBalls2D(){
+    	return bballs.getBalls2D();
+    }
     public void addNotify() {
         super.addNotify();
     }
@@ -196,8 +200,7 @@ class GamePanel extends JPanel implements MouseMotionListener, MouseListener,Key
     	ballmovement=b;
     }
     public void setBallSize(int s){
-    	ballsize=s;
-    	
+    	ballsize=s;	
     }
     public void setWaterSize(int s){
     	wballs.setSize(s);
@@ -207,7 +210,6 @@ class GamePanel extends JPanel implements MouseMotionListener, MouseListener,Key
     }
     public void setSelectedObj(String s){
     	selectedobj=s;
-    	
     }
     public void setSpawnValid(boolean b){
     	spawnvalid=b;
@@ -239,9 +241,13 @@ class GamePanel extends JPanel implements MouseMotionListener, MouseListener,Key
     public void clearBBalls(){
     	bballs.clear();
     }
+    public void clearAllBalls(){
+    	bballs.clear();
+    	wballs.clear();
+    	bballs.clearStatic();
+    }
     public void setSBallColour(int r,int g, int b){
     	solidcolour=new Color(r,g,b);
-    	
     }
     public void setSBallSize(int s){
     	solidsize=s;
@@ -272,7 +278,7 @@ class GamePanel extends JPanel implements MouseMotionListener, MouseListener,Key
     		}
     		else if(selectedobj=="Water"){
     			for(int i=0;i<waterspawnnum;i++){
-    				wballs.addBall(mx+i,my);
+    				wballs.addBall(mx+i*wballs.getSize(),my);
     			}
     		}
     	}

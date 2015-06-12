@@ -7,11 +7,11 @@ import javax.imageio.*;
 import java.util.*;
 
 public class menuBox {
-	Color colour;
-	int x;
-	int y;
-	int width;
-	int height;
+	private Color colour;
+	private int x;
+	private int y;
+	private int width;
+	private int height;
 	private menuScreen menu;
 	private boolean active;
 	private boolean collided;
@@ -25,9 +25,6 @@ public class menuBox {
 		this.height=height;
 		label=l;
     }
-    public boolean getActive(){
-    	return active;
-    }
     public boolean checkCollide(int mx, int my){
     	int x=this.x+menu.getX();
 		int y=this.y+menu.getY();
@@ -39,23 +36,21 @@ public class menuBox {
 		}
 		return collided;
     }
-    public void setActive(boolean b){
-    	active=b;
-    }
     public void draw(Graphics2D g){
     	g.setColor(colour);
     	g.drawRect(x+menu.getX(),y+menu.getY(),width,height);
     	if(active){
     		g.fillRect(x+menu.getX()+2,y+menu.getY()+2,width-3,height-3);
     	}
-    	g.drawString(label,x+menu.getX()-59,y+menu.getY()
-    		+10);
-    	
-    	
+    	g.drawString(label,x+menu.getX()-59,y+menu.getY()+10);
     }
     public void toggleActive(){
     	active=active?false:true;
     }
-    
-    
+    public boolean getActive(){
+    	return active;
+    }
+    public void setActive(boolean b){
+    	active=b;
+    }
 }

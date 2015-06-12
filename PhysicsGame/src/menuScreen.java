@@ -17,6 +17,9 @@ class menuScreen {
 	private Color colour;
 	private GamePanel gp;
 	private String label;
+	private int lastx=-1;
+	private int lasty=-1;
+	private boolean moving;
 	public menuScreen(int x, int y, int width, int height,GamePanel panel,String name){
 		moveable=false;
 		label=name;
@@ -28,9 +31,6 @@ class menuScreen {
 		sliders=new ArrayList<intSlider>();
 		boxes=new ArrayList<menuBox>();
 		gp=panel;
-	}
-	public void setColour(Color col){
-		colour=col;
 	}
 	public void draw(Graphics2D g){
 		paint.setAA(g,true);
@@ -54,11 +54,18 @@ class menuScreen {
 		paint.setAlpha(g,1f);
 		paint.setAA(g,false);
 	}
-	private int lastx=-1;
-	private int lasty=-1;
-	private boolean moving;
 	public void setSpawnValid(boolean b){
 		gp.setSpawnValid(b);
+	}
+	public void resetBoxes(int keep){
+		for(int i=0;i<boxes.size();i++){
+			if(i!=keep){
+				boxes.get(i).setActive(false);
+			}
+			else{
+				boxes.get(i).setActive(true);
+			}
+		}
 	}
 	public int checkCollide(int mx, int my){
 		if(moveable){
@@ -111,16 +118,6 @@ class menuScreen {
 		}
 		return -1;
 	}
-	public void resetBoxes(int keep){
-		for(int i=0;i<boxes.size();i++){
-			if(i!=keep){
-				boxes.get(i).setActive(false);
-			}
-			else{
-				boxes.get(i).setActive(true);
-			}
-		}
-	}
 	public double[] checkBoxes(int mx,int my){
 		double[] output=new double[2];
 		boolean collided;
@@ -140,12 +137,6 @@ class menuScreen {
 		return output;
 		
 	}
-	public void toggleBoxActive(int box){
-		boxes.get(box).toggleActive();
-	}
-	public menuBox getBox(int i){
-		return boxes.get(i);
-	}
 	public double[] checkSliders(int mx, int my){
 		double[] output=new double[2];
 		double val;
@@ -163,6 +154,13 @@ class menuScreen {
 		output[1]=-1;
 		return output;
 	}
+	public void toggleBoxActive(int box){
+		boxes.get(box).toggleActive();
+	}
+	public menuBox getBox(int i){
+		return boxes.get(i);
+	}
+	
 	public void checkHover(int mx, int my){
 		if(mx>x && mx<(x+width) && my>y && my<(y+height)){
 			gp.setSpawnValid(false);
@@ -194,5 +192,8 @@ class menuScreen {
 	}
 	public int getX(){
 		return x;
+	}
+	public void setColour(Color col){
+		colour=col;
 	}
 }

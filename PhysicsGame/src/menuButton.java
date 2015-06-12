@@ -6,18 +6,19 @@ import java.io.*;
 import javax.imageio.*; 
 import java.util.*;
 class menuButton {
-	Color colour;
-	int buttonx;
-	int buttony;
-	int buttonwidth;
-	int buttonheight;
+	private Color colour;
+	private int buttonx;
+	private int buttony;
+	private int buttonwidth;
+	private int buttonheight;
 	private boolean collided;
 	private menuScreen menu;
+	private double sizechange=1;
+	private double direction=.25;
 	public void setColor(Color colour){
 		this.colour=colour;
 	}
-	double sizechange=1;
-	double direction=.25;
+	
 	public menuButton(int buttonx, int buttony,int buttonwidth,int buttonheight,Color colour,menuScreen mn){
 		menu=mn;
 		this.colour=colour;

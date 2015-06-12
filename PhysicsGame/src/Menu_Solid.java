@@ -14,7 +14,7 @@ public class Menu_Solid {
     	r=255/2;
     	this.g=255/2;
     	b=255/2;
-    	menu=new menuScreen(0,140,140,220,gp,"Solid");
+    	menu=new menuScreen(0,165,140,220,gp,"Solid");
     	menu.setMoveable(true);
     	menu.setColour(new Color(100,100,100));
     	menu.addSlider(75,50,50,new Color(255,100,100),"Size");
@@ -51,7 +51,6 @@ public class Menu_Solid {
     			b=(int)(255*slider[1]);
     			gp.setSBallColour(r,g,b);
     		}
-    
     	}
     	if(box[0]==-1){
     	}

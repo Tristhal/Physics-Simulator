@@ -6,10 +6,10 @@ import java.io.*;
 import javax.imageio.*; 
 import java.util.*;
 public class waterBalls {
-	ArrayList<waterBall> balls;
-	ArrayList<ArrayList<ArrayList<waterBall>>> balls2D;
-	GamePanel gp;
-	int size;
+	private ArrayList<waterBall> balls;
+	private ArrayList<ArrayList<ArrayList<waterBall>>> balls2D;
+	private GamePanel gp;
+	private int size;
 	public static final int asize=20;
 	private boolean fancy=true;
     public waterBalls(GamePanel gamep) {
@@ -39,17 +39,14 @@ public class waterBalls {
     		paint.setAlpha(g,.4f);
     		for(waterBall ball:balls){
     			ball.drawFancy(g);
-    			
     		}
     		paint.setAlpha(g,1f);
     	}
     	else{
     		for(waterBall ball:balls){
     			ball.draw(g);
-    			
     		}
-    	}
-    	
+    	}	
     	paint.setAA(g,false);
     }
     public void update(){
@@ -65,7 +62,7 @@ public class waterBalls {
     	}
     	for(waterBall ball:balls.toArray(new waterBall[balls.size()])){
     		balls2D.get((int)ball.getX()/asize).get((int)ball.getY()/asize).remove(ball);
-    		ball.move(balls2D);
+    		ball.move(gp.getBBalls2D());
     		balls2D.get((int)ball.getX()/asize).get((int)ball.getY()/asize).add(ball);
     	}
     }
@@ -91,5 +88,4 @@ public class waterBalls {
     		ball.setViscosity(v);
     	}	
     }
-    
 }

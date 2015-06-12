@@ -6,10 +6,10 @@ import java.io.*;
 import javax.imageio.*; 
 import java.util.*;
 class bounceBalls{
-	GamePanel gp;
-	ArrayList<bounceBall> balls;
-	ArrayList<ArrayList<ArrayList<bounceBall>>> balls2D;
-	double gravity;
+	private GamePanel gp;
+	private ArrayList<bounceBall> balls;
+	private ArrayList<ArrayList<ArrayList<bounceBall>>> balls2D;
+	private double gravity;
 	public static final int asize=20;
 	public bounceBalls(GamePanel gamep){
 		gp=gamep;
@@ -25,23 +25,6 @@ class bounceBalls{
 			}                                               	
 		}
 	}
-
-	public void clear(){
-		for(bounceBall ball:balls.toArray(new bounceBall[balls.size()])){
-			if(ball.getMovement()){
-				balls2D.get((int)ball.getX()/asize).get((int)ball.getY()/asize).remove(ball);
-				balls.remove(ball);
-			}
-		}
-	}
-	public void draw(Graphics2D g){
-		paint.setAA(g,true);
-		for(bounceBall ball:balls){
-			ball.draw(g);
-		}
-		paint.setAA(g,false);
-	}
-
 	public void update(){
 		for(bounceBall ball:balls.toArray(new bounceBall[balls.size()])){
 			ball.resetCollided();//resets the balls2D arraylist of circles on the screen
@@ -75,6 +58,32 @@ class bounceBalls{
 			
 		}
 	}
+	public void draw(Graphics2D g){
+		paint.setAA(g,true);
+		for(bounceBall ball:balls){
+			ball.draw(g);
+		}
+		paint.setAA(g,false);
+	}
+	public void clear(){
+		for(bounceBall ball:balls.toArray(new bounceBall[balls.size()])){
+			if(ball.getMovement()){
+				balls2D.get((int)ball.getX()/asize).get((int)ball.getY()/asize).remove(ball);
+				balls.remove(ball);
+			}
+		}
+	}
+	public void clearStatic(){
+		for(bounceBall ball:balls.toArray(new bounceBall[balls.size()])){
+			if(ball.getMovement()==false){
+				balls2D.get((int)ball.getX()/asize).get((int)ball.getY()/asize).remove(ball);
+				balls.remove(ball);
+			}
+		}
+	}
+	public ArrayList<ArrayList<ArrayList<bounceBall>>> getBalls2D(){
+		return balls2D;
+	}
 	public void addBall(int x, int y, int radius,int mass,Color colour,boolean move){
 		balls.add(new bounceBall(x,y,radius,mass,colour,this,move));
 	}
@@ -92,12 +101,7 @@ class bounceBalls{
 			ball.setMassMode(b);
 		}
 	}
-	public void clearStatic(){
-		for(bounceBall ball:balls.toArray(new bounceBall[balls.size()])){
-			if(ball.getMovement()==false){
-				balls2D.get((int)ball.getX()/asize).get((int)ball.getY()/asize).remove(ball);
-				balls.remove(ball);
-			}
-		}
+	public ArrayList<bounceBall> getBalls(){
+		return balls;
 	}
 }

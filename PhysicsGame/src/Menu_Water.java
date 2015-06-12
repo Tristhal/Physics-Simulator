@@ -7,11 +7,12 @@ import javax.imageio.*;
 import java.util.*;
 
 public class Menu_Water {
-	GamePanel gp;
-	menuScreen menu;
+	private GamePanel gp;
+	private menuScreen menu;
+	private int counter=0;
     public Menu_Water(GamePanel g) {
     	gp=g;
-    	menu=new menuScreen(0,140,140,210,gp,"Water");
+    	menu=new menuScreen(0,165,140,210,gp,"Water");
     	menu.setMoveable(true);
     	menu.setColour(new Color(100,100,100));
     	menu.addSlider(75,50,50,new Color(255,100,100),"Viscosity");
@@ -21,7 +22,7 @@ public class Menu_Water {
     	menu.addBox(75,190,10,10,new Color(255,100,100),"Clear");
     	menu.getBox(0).setActive(true);
     }
-    private int counter=0;
+    
     public void update(){
     	menu.checkHover(gp.getMX(),gp.getMY());
     	int pressed=menu.checkCollide(gp.getMX(),gp.getMY());
@@ -39,7 +40,6 @@ public class Menu_Water {
     		else if(slider[0]==2){
     			gp.setWaterSpawnNum((int)(1+10*slider[1]));
     		}
-    		
     	}
     	if(box[0]!=-1){
     		if(box[0]==0){
@@ -58,10 +58,8 @@ public class Menu_Water {
 	    		counter=0;
     		}
     	}
-    	
     }
     public void draw(Graphics2D g){
     	menu.draw(g);
     }
-    
 }

@@ -49,6 +49,4 @@ public class Menu_Start {
     	g.drawString("The Simulator 4891",250,200);
     	paint.setAA(g,false);
     }
-    
-    
 }

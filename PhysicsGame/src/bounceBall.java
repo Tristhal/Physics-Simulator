@@ -15,11 +15,16 @@ class bounceBall{
 	private boolean movedx=false;
 	private boolean movedy=false;
 	private boolean collided=false;
+	private boolean massmode=true;
 	private boolean movement;
 	private bounceBalls bballs;
 	public static final int sizer=3;
 	public static final int asize=20;
-	ArrayList<bounceBall> collidedwith;
+	private ArrayList<bounceBall> collidedwith;
+	private boolean movex;
+	private boolean movey;
+	private double closestdistsqx;
+	private double closestdistsqy;
 	public bounceBall(int x,int y,int radius,int mass,Color colour,bounceBalls bballs,boolean b){
 		movement=b;
 		bx=(double)x;
@@ -32,13 +37,6 @@ class bounceBall{
 		this.mass=mass;
 		collidedwith=new ArrayList<bounceBall>();//balls collided by this
 	}
-	public boolean getMovement(){
-		return movement;
-	}
-	private boolean movex;
-	private boolean movey;
-	private double closestdistsqx;
-	private double closestdistsqy;
 	public void checkBoundaries(){
 		
 		if((by+vy)>760-1*br){
@@ -81,7 +79,7 @@ class bounceBall{
 				for(int y=-sizer;y<=sizer;y++){
 					if(x+(int)(bx/asize)>=0 && x+(int)(bx/asize)<=(1000/asize) && y+(int)(by/asize)>=0 && y+(int)(by/asize)<=(800/asize)){
 						for(bounceBall ball:balls.get(x+(int)(bx/asize)).get(y+(int)(by/asize))){
-							if(ball.getMoved()==false){
+							/**if(ball.getMoved()==false){
 								closestdistsqx = Math.pow((bx+vx - ball.getX()),2)
 							     + Math.pow((by - ball.getY()),2);
 							    closestdistsqy = Math.pow((bx - ball.getX()),2)
@@ -93,7 +91,7 @@ class bounceBall{
 							          + Math.pow((by - ball.getY()+ball.getVY()),2);
 							    closestdistsqy = Math.pow((bx - ball.getX()+ball.getVX()),2)
 							          + Math.pow((by+vy - ball.getY()+ball.getVY()),2);
-							}
+							}**/
 							closestdistsqx = Math.pow((bx+vx - ball.getX()),2)
 							     + Math.pow((by - ball.getY()),2);
 							    closestdistsqy = Math.pow((bx - ball.getX()),2)
@@ -118,15 +116,15 @@ class bounceBall{
 			}	
 		}	
 	}
-	public double collissionloss=.99;
-	double backdist;
-	double movementvectorlength;
-	double cx1;
-	double cy1;
-	double dist;
-	double nx;
-	double ny;
-	double p;
+	private double collissionloss=.99;
+	private double backdist;
+	private double movementvectorlength;
+	private double cx1;
+	private double cy1;
+	private double dist;
+	private double nx;
+	private double ny;
+	private double p;
 	public void checkCollision(ArrayList<ArrayList<ArrayList<bounceBall>>> balls){
 		if(movement==false){
 			vx=0;
@@ -170,13 +168,53 @@ class bounceBall{
 		}
 		
 	}
-	public void collideWith(bounceBall b){
-		collidedwith.add(b);
-		collided=true;
+	public Point closestPointOnLine(double lx1, double ly1, 
+        double lx2, double ly2, double x0, double y0){ 
+     	double a = ly2 - ly1; 
+     	double b = lx1 - lx2; 
+     	double c1 = (ly2 - ly1)*lx1 + (lx1 - lx2)*ly1; 
+     	double c2 = -b*x0 + a*y0; 
+     	double det = a*a - -b*b; 
+     	double cx = 0; 
+     	double cy = 0; 
+     	if(det != 0){ 
+    		cx = (double)((a*c1 - b*c2)/det); 
+    		cy = (double)((a*c2 - -b*c1)/det); 
+     	}
+     	else{ 
+     		cx = x0; 
+     		cy = y0; 
+     	} 
+     	return new Point((int)cx, (int)cy); 
+	}
+	public void draw(Graphics2D g){
+		g.setColor(colour);
+		if(massmode&&movement){
+			for(int i=0;i<5;i++){
+				paint.drawAACircle(g,(int)bx,(int)by,br-(int)((double)br/4)*i,new Color(255,mass*4,0),.1f);
+			}	
+		}
+		else{
+			g.fillOval((int)bx-br,(int)by-br,br*2,br*2);
+		}	
+	}
+	public void addGravity(){
+		vy+=bballs.getGravity();
+		if(movement==false){
+			vx=0;
+			vy=0;
+		}
 	}
 	public void resetCollided(){
 		collided=false;
 		collidedwith=new ArrayList<bounceBall>();
+	}
+	public boolean getMovement(){
+		return movement;
+	}
+	public void collideWith(bounceBall b){
+		collidedwith.add(b);
+		collided=true;
 	}
 	public boolean collidedWith(bounceBall ball){
 		return collidedwith.contains(ball);
@@ -203,13 +241,6 @@ class bounceBall{
 		vx=x;
 		vy=y;
 	}
-	public void addGravity(){
-		vy+=bballs.getGravity();
-		if(movement==false){
-			vx=0;
-			vy=0;
-		}
-	}
 	public int getMass(){
 		return mass;
 	}
@@ -229,42 +260,7 @@ class bounceBall{
 	public int getR(){
 		return br;
 	}
-	public Point closestPointOnLine(double lx1, double ly1, 
-        double lx2, double ly2, double x0, double y0){ 
-     	double a = ly2 - ly1; 
-     	double b = lx1 - lx2; 
-     	double c1 = (ly2 - ly1)*lx1 + (lx1 - lx2)*ly1; 
-     	double c2 = -b*x0 + a*y0; 
-     	double det = a*a - -b*b; 
-     	double cx = 0; 
-     	double cy = 0; 
-     	if(det != 0){ 
-    		cx = (double)((a*c1 - b*c2)/det); 
-    		cy = (double)((a*c2 - -b*c1)/det); 
-     	}
-     	else{ 
-     		cx = x0; 
-     		cy = y0; 
-     	} 
-     	return new Point((int)cx, (int)cy); 
-	}
 	public void setMassMode(boolean b){
 		massmode=b;
-	}
-	private boolean massmode=false;
-	public void draw(Graphics2D g){
-		g.setColor(colour);
-		if(massmode&&movement){
-			for(int i=0;i<5;i++){
-				paint.drawAACircle(g,(int)bx,(int)by,br-(int)((double)br/4)*i,new Color(255,mass*4,0),.1f);
-			}	
-		}
-		else{
-			g.fillOval((int)bx-br,(int)by-br,br*2,br*2);
-		}
-		
-		
-		
-		
 	}
 }

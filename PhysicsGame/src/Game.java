@@ -12,7 +12,8 @@ public class Game extends JFrame implements ActionListener{
 	private GamePanel panel;
 	private boolean startmenustatus;
 	private boolean gamestatus;
-	private boolean simulationstatus;	
+	private boolean simulationstatus;
+	private int timerhold=0;
     public Game() {
 		super("Things.py");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +30,7 @@ public class Game extends JFrame implements ActionListener{
 		gamestatus=false;
 		simulationstatus=true;
     }
-	int timerhold=0;
+	
 	public void actionPerformed(ActionEvent evt){
 		timerhold+=1;
 		if(simulationstatus){
