@@ -12,7 +12,7 @@ public class Menu_Water {
 	private int counter=0;
     public Menu_Water(GamePanel g) {
     	gp=g;
-    	menu=new menuScreen(0,165,140,210,gp,"Water");
+    	menu=new menuScreen(0,165,140,210,gp,"Mystery Fluid");
     	menu.setMoveable(true);
     	menu.setColour(new Color(100,100,100));
     	menu.addSlider(75,50,50,new Color(255,100,100),"Viscosity");

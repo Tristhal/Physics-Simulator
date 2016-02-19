@@ -172,6 +172,9 @@ class menuScreen {
 	public void addBox(int buttonx, int buttony,int buttonwidth,int buttonheight,Color colour,String text){
 		boxes.add(new menuBox(buttonx,buttony,buttonwidth,buttonheight,colour,this,text));
 	}
+	public void addBox(int buttonx, int buttony,int buttonwidth,int buttonheight,Color colour,String text,int offset){
+		boxes.add(new menuBox(buttonx,buttony,buttonwidth,buttonheight,colour,this,text,offset));
+	}
 	public void addButton(int buttonx, int buttony,int buttonwidth,int buttonheight,Color colour){
 		buttons.add(new menuButton(buttonx,buttony,buttonwidth,buttonheight,colour,this));
 	}

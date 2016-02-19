@@ -16,6 +16,7 @@ public class menuBox {
 	private boolean active;
 	private boolean collided;
 	private String label;
+	private int offset;
     public menuBox (int x, int y,int width,int height,Color colour,menuScreen mn,String l){
     	menu=mn;
 		this.colour=colour;
@@ -23,6 +24,16 @@ public class menuBox {
 		this.y=y;
 		this.width=width;
 		this.height=height;
+		label=l;
+    }
+    public menuBox (int x, int y,int width,int height,Color colour,menuScreen mn,String l,int offset){
+    	menu=mn;
+		this.colour=colour;
+		this.x=x+offset;
+		this.y=y;
+		this.width=width;
+		this.height=height;
+		this.offset=offset;
 		label=l;
     }
     public boolean checkCollide(int mx, int my){
@@ -42,7 +53,7 @@ public class menuBox {
     	if(active){
     		g.fillRect(x+menu.getX()+2,y+menu.getY()+2,width-3,height-3);
     	}
-    	g.drawString(label,x+menu.getX()-59,y+menu.getY()+10);
+    	g.drawString(label,x+menu.getX()-59-offset,y+menu.getY()+10);
     }
     public void toggleActive(){
     	active=active?false:true;

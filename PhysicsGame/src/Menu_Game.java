@@ -17,10 +17,10 @@ public class Menu_Game {
     	menu=new menuScreen(0,0,140,165,gp,"Global");
     	menu.setColour(new Color(100,100,100));
     	menu.addSlider(75,50,50,new Color(255,100,100),"Gravity");
-    	menu.addBox(75,70,10,10,new Color(255,100,100),"Ball");
-    	menu.addBox(75,95,10,10,new Color(255,100,100),"Water");
-    	menu.addBox(75,120,10,10,new Color(255,100,100),"Solid");
-    	menu.addBox(75,145,10,10,new Color(255,100,100),"Clear All");
+    	menu.addBox(75,70,10,10,new Color(255,100,100),"Ball",20);
+    	menu.addBox(75,95,10,10,new Color(255,100,100),"Mystery Fluid",20);
+    	menu.addBox(75,120,10,10,new Color(255,100,100),"Solid",20);
+    	menu.addBox(75,145,10,10,new Color(255,100,100),"Clear All",20);
     	menu.resetBoxes(1);
     }
     public void update(){
